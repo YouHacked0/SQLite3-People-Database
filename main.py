@@ -27,7 +27,7 @@ def main():
         log("Connected!")
     cursor = db.cursor()
     fill_db("scripts.sql", cursor)
-    print("Commands:\n view | inp_people | change_item | change_price | stats | help | exit")
+    print("Commands:\n view | inp_people | del_user | change_item | change_price | stats | help | exit")
     while True:
         cmd = input("> ")
         if cmd == "view":
@@ -115,6 +115,12 @@ def main():
             #
             print(f"All prices: {prices}")
             print(f"Max: {max(prices)}\nMiddle: {middle}\nMin: {min(prices)}")
+        elif cmd == "del_user":
+            print("Enter User ID!")
+            user_id = int(input(" >"))
+            sql_delete_str = """DELETE from users where id = ?"""
+            cursor.execute(sql_delete_str, (user_id,))
+            print("Deleted!")
         elif cmd == "exit" or cmd == "quit" or cmd == "q":
             break
         elif cmd == "help" or cmd == "menu":
